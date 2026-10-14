@@ -96,7 +96,7 @@ export default function LandingScreen({ navigation }) {
 
           <Pressable
             style={({ pressed }) => [styles.btn, pressed && styles.pressed]}
-            onPress={() => navigation.replace('Home')}
+            onPress={() => navigation.navigate('Login')}
           >
             <LinearGradient
               colors={[colors.red, colors.redDeep]}
@@ -110,7 +110,7 @@ export default function LandingScreen({ navigation }) {
 
           <Pressable
             style={({ pressed }) => [styles.btn, pressed && styles.pressed]}
-            onPress={() => navigation.replace('Home')}
+            onPress={() => navigation.navigate('Register')}
           >
             <LinearGradient
               colors={[colors.orange, colors.orangeDeep]}

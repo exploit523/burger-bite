@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -18,11 +19,26 @@ import {
   images,
   menuBurgers,
 } from '../data/burgers';
+import { logoutUser } from '../utils/authStorage';
 import { colors } from '../theme';
 
 export default function HomeScreen({ navigation }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedId, setSelectedId] = useState(featuredBurgers[0].id);
+
+  const onLogout = () => {
+    Alert.alert('Log out', 'Do you want to log out?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Log out',
+        style: 'destructive',
+        onPress: async () => {
+          await logoutUser();
+          navigation.replace('Landing');
+        },
+      },
+    ]);
+  };
 
   const filteredMenu = useMemo(() => {
     if (activeCategory === 'All') return menuBurgers;
@@ -49,7 +65,9 @@ export default function HomeScreen({ navigation }) {
             </Pressable>
 
             <View style={styles.headerRight}>
-              <Image source={images.avatar} style={styles.avatar} />
+              <Pressable onPress={onLogout}>
+                <Image source={images.avatar} style={styles.avatar} />
+              </Pressable>
               <View style={styles.bellWrap}>
                 <Ionicons
                   name="notifications-outline"
